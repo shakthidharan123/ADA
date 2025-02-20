@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { router } from "expo-router";
+import { Redirect, router } from "expo-router";
 
-const Profile = () => {
+const AdminProfile = () => {
   const [image, setImage] = useState(null);
 
   const pickImage = async () => {
@@ -27,15 +27,16 @@ const Profile = () => {
           className="w-24 h-24 rounded-full border-2 border-yellow-500"
         />
       </TouchableOpacity>
-      <Text className="text-white text-lg mt-4">John Doe</Text>
-      <Text className="text-gray-400">+123 456 7890</Text>
-      <Text className="text-gray-400">License: XYZ123456</Text>
+      <Text className="text-white text-lg mt-4">Admin Name: Dhileep</Text>
+      <Text className="text-gray-400">Email: admin@ambulanceapp.com</Text>
+      <Text className="text-gray-400">Phone: 9089907689</Text>
+      <Text className="text-gray-400">Role: System Administrator</Text>
 
-      <TouchableOpacity onPress={()=>{router.push('/navigator')}} className="bg-red-500 px-5 py-2 mt-5 rounded-lg">
+      <TouchableOpacity className="bg-red-500 px-5 py-2 mt-5 rounded-lg">
         <Text className="text-white">Logout</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-export default Profile;
+export default AdminProfile;

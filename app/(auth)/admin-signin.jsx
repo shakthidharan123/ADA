@@ -11,7 +11,7 @@ const Signin = () => {
   return (
     
         <View className="flex-1 justify-center px-5">
-          <Text className="text-2xl font-bold text-center mb-5">Driver LogIn</Text>
+          <Text className="text-2xl font-bold text-center mb-5">Admin LogIn</Text>
           
           <Controller
             control={control}
@@ -52,7 +52,7 @@ const Signin = () => {
           />
           {errors.password && <Text className="text-red-500 text-sm mb-3">{errors.password.message}</Text>}
           
-          <CustomButton title="SignIn" textStyle="text-white" handlePress={()=>{router.push('/Accident')}} containerStyle="mt-10 bg-red-600" isLoading={isSubmitting} />  
+          <CustomButton title="SignIn" textStyle="text-white" handlePress={()=>{router.push('/Users')}} containerStyle="mt-10 bg-red-600" isLoading={isSubmitting} />  
         </View>
       );
   
