@@ -21,7 +21,7 @@ const TabsLayout = () => {
     <>
     <Tabs
     screenOptions={{
-
+        headerShown: false, // ✅ Hides header for all tabs
         
     }}>
         <Tabs.Screen

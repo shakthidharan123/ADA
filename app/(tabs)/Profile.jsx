@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { router } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Profile = () => {
   const [image, setImage] = useState(null);
-
+  const handleLogout = async()=>{
+    await AsyncStorage.removeItem('token');
+    router.replace('/(auth)/navigator');
+  }
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -31,7 +35,7 @@ const Profile = () => {
       <Text className="text-gray-400">+123 456 7890</Text>
       <Text className="text-gray-400">License: XYZ123456</Text>
 
-      <TouchableOpacity onPress={()=>{router.push('/navigator')}} className="bg-red-500 px-5 py-2 mt-5 rounded-lg">
+      <TouchableOpacity onPress={()=>{handleLogout()}} className="bg-red-500 px-5 py-2 mt-5 rounded-lg">
         <Text className="text-white">Logout</Text>
       </TouchableOpacity>
     </View>

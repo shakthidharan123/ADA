@@ -1,12 +1,33 @@
-import { View, Text } from 'react-native'
+import { View, Text,} from 'react-native'
 import React, { useState } from 'react'
 import { TextInput, Button } from 'react-native-paper';
 import { useForm, Controller } from 'react-hook-form';
 import CustomButton from "../../components/CustomButton"
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from 'axios'
 import { router } from 'expo-router';
 const Signin = () => {
     const { control, handleSubmit, formState: { errors } } = useForm();
     const [isSubmitting,setissubmitting] = useState(false);
+
+    const onSubmit = (data)=>{
+     // setIsSubmitting(true);
+
+      console.log(data);
+      axios.post('http://10.16.49.210:5000/admin/login',data).then(async(res)=>{
+        console.log(res.data);
+        
+        await AsyncStorage.setItem('token',res.data.token);
+        
+        
+         
+        
+        router.replace("/(admin)/Users");
+      }).catch((err)=>{
+        console.log(err);
+      })
+    }
+    
     
   return (
     
@@ -52,7 +73,7 @@ const Signin = () => {
           />
           {errors.password && <Text className="text-red-500 text-sm mb-3">{errors.password.message}</Text>}
           
-          <CustomButton title="SignIn" textStyle="text-white" handlePress={()=>{router.push('/Users')}} containerStyle="mt-10 bg-red-600" isLoading={isSubmitting} />  
+          <CustomButton title="SignIn" textStyle="text-white" handlePress={handleSubmit(onSubmit)} containerStyle="mt-10 bg-red-600" isLoading={isSubmitting} />  
         </View>
       );
   

@@ -4,9 +4,23 @@ import { TextInput, Button } from 'react-native-paper';
 import { useForm, Controller } from 'react-hook-form';
 import CustomButton from "../../components/CustomButton"
 import { router } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 const Signin = () => {
     const { control, handleSubmit, formState: { errors } } = useForm();
     const [isSubmitting,setissubmitting] = useState(false);
+
+    const onSubmit = async(data)=>{
+      axios.post('http://10.16.49.210:5000/user/login',data).then(async(res)=>{
+        console.log(res.data);
+        await AsyncStorage.setItem('token',res.data.token);
+
+        router.replace('/(tabs)/Accident');
+
+      }).catch((err)=>{
+        console.log(err);
+      })
+    }
     
   return (
     
@@ -52,7 +66,7 @@ const Signin = () => {
           />
           {errors.password && <Text className="text-red-500 text-sm mb-3">{errors.password.message}</Text>}
           
-          <CustomButton title="SignIn" textStyle="text-white" handlePress={()=>{router.push('/Accident')}} containerStyle="mt-10 bg-red-600" isLoading={isSubmitting} />  
+          <CustomButton title="SignIn" textStyle="text-white" handlePress={handleSubmit(onSubmit)} containerStyle="mt-10 bg-red-600" isLoading={isSubmitting} />  
         </View>
       );
   
